@@ -1,8 +1,8 @@
 package com.mobotechnology.bipinpandey.retrofit_handdirty.my_interface;
 
-import com.mobotechnology.bipinpandey.retrofit_handdirty.model.Notice;
-import com.mobotechnology.bipinpandey.retrofit_handdirty.model.NoticeList;
+import com.mobotechnology.bipinpandey.retrofit_handdirty.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,10 +22,10 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
-public interface GetNoticeDataService {
+public interface GetUserDataService {
 
-    @GET("bins/1bsqcn/")
-    Call<NoticeList> getNoticeData();
+    @GET("api/users/")
+    Call<ArrayList<User>> getUserData();
 
 
 
@@ -34,7 +34,7 @@ public interface GetNoticeDataService {
      * @since Not used, Just to know how to use @query to get JSONObject
      * */
     @GET("bins/path/")
-    Call<NoticeList> getNoticeDataData(@Query("company_no") int companyNo);
+    Call<ArrayList<User>> getNoticeDataData(@Query("company_no") int companyNo);
 
 
 
@@ -45,7 +45,7 @@ public interface GetNoticeDataService {
      * A corresponding parameter must be annotated with @Path using the same string.
      * */
     @GET("group/{id}/users")
-    Call<List<Notice>> groupList(@Path("id") int groupId);
+    Call<ArrayList<User>> groupList(@Path("id") int groupId);
 
 
 
@@ -54,7 +54,7 @@ public interface GetNoticeDataService {
      * Using Query parameters.
      * */
     @GET("group/{id}/users")
-    Call<List<Notice>> groupList(@Path("id") int groupId, @Query("sort") String sort);
+    Call<ArrayList<User>> groupList(@Path("id") int groupId, @Query("sort") String sort);
 
 
 
@@ -64,7 +64,7 @@ public interface GetNoticeDataService {
      * complex query parameter combinations a Map can be used
      * */
     @GET("group/{id}/noticelist")
-    Call<List<Notice>> groupList(@Path("id") int groupId, @QueryMap Map<String, String> options);
+    Call<ArrayList<User>> groupList(@Path("id") int groupId, @QueryMap Map<String, String> options);
 
 
 
@@ -73,8 +73,8 @@ public interface GetNoticeDataService {
      * URL MANIPULATION
      * HTTP request body with the @Body annotation
      */
-    @POST("notice/new")
-    Call<Notice> createNotice(@Body Notice notice);
+    @POST("user/new")
+    Call<User> createNotice(@Body User user);
 
 
 
@@ -86,7 +86,7 @@ public interface GetNoticeDataService {
      * */
     @FormUrlEncoded
     @POST("notice/edit")
-    Call<Notice> updateNotice(@Field("id") String id, @Field("title") String title);
+    Call<User> updateNotice(@Field("id") String id, @Field("title") String title);
 
 
 
@@ -98,7 +98,7 @@ public interface GetNoticeDataService {
      * */
     @Multipart
     @PUT("notice/photo")
-    Call<Notice> updateNotice(@Part("photo") RequestBody photo, @Part("description") RequestBody description);
+    Call<User> updateNotice(@Part("photo") RequestBody photo, @Part("description") RequestBody description);
 
 
 
@@ -109,7 +109,7 @@ public interface GetNoticeDataService {
      * */
     @Headers("Cache-Control: max-age=640000")
     @GET("notice/list")
-    Call<List<Notice>> NoticeList();
+    Call<List<User>> NoticeList();
 
 
 
@@ -121,7 +121,7 @@ public interface GetNoticeDataService {
             "User-Agent: Retrofit-Sample-App"
     })
     @GET("noticelist/{title}")
-    Call<Notice> getNotice(@Path("title") String title);
+    Call<User> getNotice(@Path("title") String title);
 
 
 
@@ -133,6 +133,6 @@ public interface GetNoticeDataService {
      * If the value is null, the header will be omitted. Otherwise, toString will be called on the value, and the result used.
      * */
     @GET("notice")
-    Call<Notice> getNoticeUsingHeader(@Header("Authorization") String authorization);
+    Call<User> getNoticeUsingHeader(@Header("Authorization") String authorization);
 
 }

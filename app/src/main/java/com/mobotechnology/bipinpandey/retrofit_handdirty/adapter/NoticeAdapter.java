@@ -7,15 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobotechnology.bipinpandey.retrofit_handdirty.R;
-import com.mobotechnology.bipinpandey.retrofit_handdirty.model.Notice;
+import com.mobotechnology.bipinpandey.retrofit_handdirty.model.User;
 
 import java.util.ArrayList;
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder> {
 
-    private ArrayList<Notice> dataList;
+    private ArrayList<User> dataList;
 
-    public NoticeAdapter(ArrayList<Notice> dataList) {
+    public NoticeAdapter(ArrayList<User> dataList) {
         this.dataList = dataList;
     }
 
@@ -28,9 +28,9 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
 
     @Override
     public void onBindViewHolder(NoticeViewHolder holder, int position) {
-        holder.txtNoticeTitle.setText(dataList.get(position).getTitle());
-        holder.txtNoticeBrief.setText(dataList.get(position).getBrief());
-        holder.txtNoticeFilePath.setText(dataList.get(position).getFileSource());
+        holder.txtNoticeTitle.setText(dataList.get(position).getFirstName());
+        holder.txtNoticeBrief.setText(dataList.get(position).getLastName());
+        holder.txtNoticeFilePath.setText(dataList.get(position).getEmail());
     }
 
     @Override

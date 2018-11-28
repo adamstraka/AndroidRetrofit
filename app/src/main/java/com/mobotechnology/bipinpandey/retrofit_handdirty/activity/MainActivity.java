@@ -10,12 +10,13 @@ import android.widget.Toast;
 
 import com.mobotechnology.bipinpandey.retrofit_handdirty.R;
 import com.mobotechnology.bipinpandey.retrofit_handdirty.adapter.NoticeAdapter;
-import com.mobotechnology.bipinpandey.retrofit_handdirty.model.Notice;
-import com.mobotechnology.bipinpandey.retrofit_handdirty.model.NoticeList;
-import com.mobotechnology.bipinpandey.retrofit_handdirty.my_interface.GetNoticeDataService;
+import com.mobotechnology.bipinpandey.retrofit_handdirty.model.User;
+//import com.mobotechnology.bipinpandey.retrofit_handdirty.model.UserList;
+import com.mobotechnology.bipinpandey.retrofit_handdirty.my_interface.GetUserDataService;
 import com.mobotechnology.bipinpandey.retrofit_handdirty.network.RetrofitInstance;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,31 +36,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         /** Create handle for the RetrofitInstance interface*/
-        GetNoticeDataService service = RetrofitInstance.getRetrofitInstance().create(GetNoticeDataService.class);
+        GetUserDataService service = RetrofitInstance.getRetrofitInstance().create(GetUserDataService.class);
 
         /** Call the method with parameter in the interface to get the notice data*/
-        Call<NoticeList> call = service.getNoticeData();
+        Call<ArrayList<User>> call = service.getUserData();
 
         /**Log the URL called*/
         Log.wtf("URL Called", call.request().url() + "");
 
-        call.enqueue(new Callback<NoticeList>() {
+        call.enqueue(new Callback<ArrayList<User>>() {
             @Override
-            public void onResponse(Call<NoticeList> call, Response<NoticeList> response) {
-                    generateNoticeList(response.body().getNoticeArrayList());
+            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                    generateNoticeList(response.body());
             }
 
             @Override
-            public void onFailure(Call<NoticeList> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     /** Method to generate List of notice using RecyclerView with custom adapter*/
-    private void generateNoticeList(ArrayList<Notice> noticeArrayList) {
+    private void generateNoticeList(ArrayList<User> userArrayList) {
         recyclerView = findViewById(R.id.recycler_view_notice_list);
-        adapter = new NoticeAdapter(noticeArrayList);
+        adapter = new NoticeAdapter(userArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
